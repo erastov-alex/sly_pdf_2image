@@ -1,2 +1,2 @@
-# sly_pdf_2image
-Supervisely PDF to Image Uploader
+# pfd_to_jpeg_app
+Supervisely pdf 2 jpeg app

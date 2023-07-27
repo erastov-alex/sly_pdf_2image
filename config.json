@@ -1,0 +1,13 @@
+{
+    "name": "Dataset Manager",
+    "type": "app",
+    "categories": ["import", "images", "essentials"],
+    "description": "Drag and drop to Supervisely, supported formats: .jpg, .jpeg, jpe, .xml, .json, .txt",
+    "docker_image": "supervisely/base-py-sdk:6.72.48",
+    "main_script": "src/main.py",
+    "task_location": "workspace_tasks",
+    "min_agent_version": "6.7.4",
+    "min_instance_version": "6.5.46",
+    "entrypoint": "python -m uvicorn src.main:app --host 0.0.0.0 --port 8000",
+    "port": 8000
+  }
