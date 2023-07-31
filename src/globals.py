@@ -3,14 +3,7 @@ import os
 import supervisely as sly
 from dotenv import load_dotenv
 
-DATA = None
-
-IS_PRODUCTION = sly.is_production()
-if IS_PRODUCTION is True:
-    load_dotenv("advanced.env")
-    STORAGE_DIR = sly.app.get_data_dir()
-else:
-    load_dotenv("local.env")
+load_dotenv("local.env")
 
 load_dotenv(os.path.expanduser("~/supervisely.env"))
 

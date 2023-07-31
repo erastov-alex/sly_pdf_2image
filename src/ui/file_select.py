@@ -1,19 +1,9 @@
 import os
 import fitz
- 
-from supervisely.app.widgets import (
-    Button,
-    Card,
-    Field,
-    Container,
-    Text,
-    FileStorageUpload,
-    SlyTqdm
-)
-
 import shutil
 import supervisely as sly
 
+from supervisely.api.dataset_api import DatasetApi
 from supervisely.app.widgets import (
     Button,
     Card,
@@ -23,17 +13,26 @@ from supervisely.app.widgets import (
     SelectWorkspace,
     SlyTqdm,
     Text,
-    Checkbox
+    Checkbox,
+    FileStorageUpload,
+    Field
 )
 
 import src.globals as g
-
 
 def process():
     """
     Create Project and import data
     """
-    def convert_upload(file,pdf_path,dataset):
+    def convert_upload(file:str, pdf_path:str ,dataset:DatasetApi):
+        '''
+        Convert single PDF file and Upload to Supervisely
+
+        param file:str - filename ['example.py']]
+        param pdf_path:str - path to file ['path/to/file']
+        param dataset:DatasetApi - ground/folder Dataset
+
+        '''
         output_text.set(text=f"Uploading {file}", status="text")
         output_text.show()
         output_progress2.show()
@@ -41,8 +40,6 @@ def process():
         with output_progress2(total=pdf_document.page_count) as pbar2:
             for page_number in range(pdf_document.page_count):
                 page = pdf_document.load_page(page_number)
-                # image_matrix = fitz.Matrix(fitz.Identity)
-                # image_matrix.preScale(2, 2)  # Adjust scale as needed
                 # Get the image in Pixmap format (which can be saved as an image file)
                 pixmap = page.get_pixmap(dpi=300)
                 # Save the image to a file
@@ -122,7 +119,7 @@ def process():
                         for rootdir, dirs, files in os.walk(path_folder):
                             for file in files:
                                 if file.endswith('pdf'):
-                                    convert_upload(file,pdf_path=os.path.join(rootdir,file),dataset=dataset_folder)
+                                    convert_upload(file ,pdf_path=os.path.join(rootdir,file), dataset=dataset_folder)
                                     pbar.update(1)
                     elif object.endswith('pdf'):
                         convert_upload(object,pdf_path=os.path.join('input',object),dataset=dataset_ground)

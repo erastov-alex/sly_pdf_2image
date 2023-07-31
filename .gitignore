@@ -1,3 +1,2 @@
 venv
-input
-test.py
+__pycache__/
