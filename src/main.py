@@ -1,11 +1,7 @@
 import supervisely as sly
-
 from supervisely.app.widgets import Container
+import src.ui.file_select as file_select
 
-from src.ui.file_select import process
-
-
-card = process()
+card = file_select.card
 layout = Container(widgets=[card])
 app = sly.Application(layout=layout)
-        
